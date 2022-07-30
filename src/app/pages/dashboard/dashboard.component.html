@@ -1,0 +1,153 @@
+<div class="row mb-1">
+    <div class="col topBar">
+        <div class="input-group mb-3 box-shadow d-flex justify-content-center ">
+            <div class="input-group-prepend">
+                <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><b>From</b></span>
+            </div>
+            <input class="input-group-text border-top-0 border-left-0 border-bottom-0 " type="date"
+                [(ngModel)]="startDate">
+            <div class="input-group-prepend">
+                <span class="input-group-text border-top-0 border-left-0 border-bottom-0"><b>To</b></span>
+            </div>
+            <input class="input-group-text border-top-0 border-left-0 border-bottom-0" type="date"
+                [(ngModel)]="endDate">
+
+            <div class="input-group-prepend">
+                <span (click)="getIMDBData()" style="cursor:pointer;" (click)="FormatDateTime()"
+                    class="input-group-text border-top-0 border-left-0 border-bottom-0"><i class="fa fa-search"></i><b
+                        class="m-1">Search</b></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row wiewReports ">
+        <div class="col-md-3 text-center">
+            <div class="card bg-black">
+                <div>
+                    <h5>Tatal Cases</h5>
+                </div>
+                <div><b>{{report1.data.fullReport.totalCases}}</b></div>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="card bg-black">
+                <div>
+                    <h5>Lost Cases</h5>
+                </div>
+                <div><b>{{report1.data.fullReport.lostCases}}</b></div>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="card bg-black">
+                <div>
+                    <h5>Found Cases</h5>
+                </div>
+                <div><b>{{report1.data.fullReport.foundMissCases}}</b></div>
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="card bg-black">
+                <div>
+                    <h5>Recovered Cases</h5>
+                </div>
+                <div><b>{{report1.data.fullReport.caseCompleted}}</b></div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-4 mb-2 d-flex justify-content-around ">
+        <div class="card col-md-4 mt-2 provinceReports ">
+            <div>
+                <h3>Province Wise Report</h3>
+            </div>
+            <table class="table table-bordered">
+                <thead class="bg-black">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">Found Cases</th>
+                        <th scope="col">Recovered Cases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of provinceReports">
+                        <td>{{item.provinceName}}</td>
+                        <td>{{item.totalCase}}</td>
+                        <td>{{item.foundCase}}</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card col-md-3 ml-1 mr-1 mt-2 RemainingCases">
+            <div>
+                <h3>Remaining Cases</h3>
+            </div>
+            <circle-progress [percent]="persontageCases" [radius]="100" [outerStrokeWidth]="16" [innerStrokeWidth]="8"
+                [outerStrokeColor]="'#78C000'" [innerStrokeColor]="'#C7E596'" [animation]="true"
+                [animationDuration]="300"></circle-progress>
+
+        </div>
+        <div class=" card col-md-4 mt-2 mt-2 cityReports">
+            <div>
+                <h3>Cites Wise Report</h3>
+            </div>
+            <table class="table table-bordered">
+                <thead class="bg-black">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Total Cases</th>
+                        <th scope="col">Found Cases</th>
+                        <th scope="col">Recovered Cases</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of cityReports">
+                        <td>{{item.cityName}}</td>
+                        <td>{{item.totalCases}}</td>
+                        <td>{{item.foundCases}}</td>
+                        <td>2</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card m-5 p-3">
+        <div class="ml-2">
+            <h3>Personal Detail</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-black">
+                    <tr>
+                        <th scope="col">Profile</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Missing</th>
+                        <th scope="col">Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of person">
+                        <td style="width:50px; margin:2px ;"><img class="img  blur-up lazyloaded m-2"
+                                style="width:50px;" [src]="item.personImages[0].imageURL" alt=""></td>
+                        <td>{{item.name}}</td>
+                        <td>{{item.streetAddress}}</td>
+                        <td>{{item.age}}</td>
+                        <td>{{item.missingSince}}</td>
+                        <td>{{item.reporterDetail.contactNum}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<ng-http-loader></ng-http-loader>
