@@ -28,13 +28,18 @@ export class LoginComponent {
             userName: this.model.userName,
             password: this.model.password,
         };
-
+        console.log("loginModel", loginModel)
         this.hrm.AdminLogin(loginModel).subscribe(result => {
             this.credentional = result;
+            console.log(this.credentional);
             if (!this.credentional.isSuccess) {
                 alert('Invalid Email and Password');
             }
             else {
+                const data = result;
+                localStorage.setItem('token', JSON.stringify(this.credentional.token));
+                if (data)
+                    localStorage.setItem('user', JSON.stringify(data));
                 this.router.navigate(['/']);
             }
         })
